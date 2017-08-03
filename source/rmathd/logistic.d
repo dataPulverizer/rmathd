@@ -1,6 +1,6 @@
-module logistic;
+module rmathd.logistic;
 
-import common;
+public import rmathd.common;
 
 
 /* 
@@ -9,7 +9,7 @@ import common;
 */
 
 
-T dlogis(T)(T x, T location, T scale, int give_log)
+T dlogis(T: double)(T x, T location, T scale, int give_log)
 {
     T e, f;
 
@@ -41,7 +41,7 @@ T Rf_log1pexp(T)(T x) {
 }
 
 
-T plogis(T)(T x, T location, T scale, int lower_tail, int log_p)
+T plogis(T: double)(T x, T location, T scale, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(location) || isNaN(scale))
 	return x + location + scale;
@@ -63,7 +63,7 @@ T plogis(T)(T x, T location, T scale, int lower_tail, int log_p)
 }
 
 
-T qlogis(T)(T p, T location, T scale, int lower_tail, int log_p)
+T qlogis(T: double)(T p, T location, T scale, int lower_tail, int log_p)
 {
     if (isNaN(p) || isNaN(location) || isNaN(scale))
 	    return p + location + scale;
@@ -90,7 +90,7 @@ T qlogis(T)(T p, T location, T scale, int lower_tail, int log_p)
 }
 
 
-T rlogis(T)(T location, T scale)
+T rlogis(T: double)(T location, T scale)
 {
     if (isNaN(location) || !isFinite(scale))
 	    return T.nan;

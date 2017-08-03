@@ -1,14 +1,13 @@
-module uniform;
+module rmathd.uniform;
 
-import common;
+public import rmathd.common;
 
 /*
 ** dmd uniform.d common.d && ./uniform
-**
 ** dmd uniform.d common.d && ./uniform && rm uniform
 */
 
-T dunif(T)(T x, T a, T b, int give_log)
+T dunif(T: double)(T x, T a, T b, int give_log)
 {
     if (isNaN(x) || isNaN(a) || isNaN(b))
 	    return x + a + b;
@@ -22,7 +21,7 @@ T dunif(T)(T x, T a, T b, int give_log)
     return R_D__0;
 }
 
-T punif(T)(T x, T a, T b, int lower_tail, int log_p)
+T punif(T: double)(T x, T a, T b, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(a) || isNaN(b))
 	    return x + a + b;
@@ -41,7 +40,7 @@ T punif(T)(T x, T a, T b, int lower_tail, int log_p)
     	return R_D_val!T((b - x) / (b - a), log_p);
 }
 
-T qunif(T)(T p, T a, T b, int lower_tail, int log_p)
+T qunif(T: double)(T p, T a, T b, int lower_tail, int log_p)
 {
     if (isNaN(p) || isNaN(a) || isNaN(b))
 	    return p + a + b;
@@ -58,7 +57,7 @@ T qunif(T)(T p, T a, T b, int lower_tail, int log_p)
     return a + R_DT_qIv * (b - a);
 }
 
-T runif(T)(T a, T b)
+T runif(T: double)(T a, T b)
 {
     if (!isFinite(a) || !isFinite(b) || b < a)
     	return T.nan;

@@ -1,10 +1,10 @@
-module nchisq;
+module rmathd.nchisq;
 
-import common;
-import gamma;
-import chisq;
-import normal;
-import poisson;
+public import rmathd.common;
+public import rmathd.gamma;
+public import rmathd.chisq;
+public import rmathd.poisson;
+//import rmathd.normal;
 
 /*
 ** dmd nchisq.d common.d normal.d chisq.d && ./nchisq
@@ -193,7 +193,7 @@ T pnchisq_raw(T)(T x, T f, T theta /* = ncp */,
 }
 
 
-T pnchisq(T)(T x, T df, T ncp, int lower_tail, int log_p)
+T pnchisq(T: double)(T x, T df, T ncp, int lower_tail, int log_p)
 {
     T ans;
     if (isNaN(x) || isNaN(df) || isNaN(ncp))
@@ -213,7 +213,7 @@ T pnchisq(T)(T x, T df, T ncp, int lower_tail, int log_p)
 	        /* since we computed the other tail cancellation is likely */
 	        if(ans < (log_p ? (-10. * M_LN10) : 1e-10)){
 	        	doNothing();
-	        };
+	        }
 	        if(!log_p) ans = fmax2!T(ans, 0.0);  /* Precaution PR#7099 */
 	    }
     }
@@ -228,7 +228,7 @@ T pnchisq(T)(T x, T df, T ncp, int lower_tail, int log_p)
 }
 
 
-T dnchisq(T)(T x, T df, T ncp, int give_log)
+T dnchisq(T: double)(T x, T df, T ncp, int give_log)
 {
     const static T eps = 5e-15;
 
@@ -305,7 +305,7 @@ T dnchisq(T)(T x, T df, T ncp, int give_log)
 }
 
 
-T qnchisq(T)(T p, T df, T ncp, int lower_tail, int log_p)
+T qnchisq(T: double)(T p, T df, T ncp, int lower_tail, int log_p)
 {
     const static T accu = 1e-13;
     const static T racc = 4*DBL_EPSILON;
@@ -365,21 +365,21 @@ T qnchisq(T)(T p, T df, T ncp, int lower_tail, int log_p)
     if(lower_tail) {
         for(; ux < DBL_MAX &&
 		pnchisq_raw!T(ux, df, ncp, Eps, rEps, 10000, 1, 0) < pp;
-	    ux *= 2){};
+	    ux *= 2){}
 	pp = p * (1 - Eps);
         for(lx = fmin2!T(ux0, DBL_MAX);
 	    lx > DBL_MIN &&
 		pnchisq_raw!T(lx, df, ncp, Eps, rEps, 10000, 1, 0) > pp;
-	    lx *= 0.5){};
+	    lx *= 0.5){}
     }
     else {
         for(; ux < DBL_MAX &&
 		pnchisq_raw!T(ux, df, ncp, Eps, rEps, 10000, 0, 0) > pp;
-	    ux *= 2){};
+	    ux *= 2){}
 	pp = p * (1 - Eps);
         for(lx = fmin2!T(ux0, DBL_MAX);
 	    lx > DBL_MIN && pnchisq_raw!T(lx, df, ncp, Eps, rEps, 10000, 0, 0) < pp;
-	    lx *= 0.5){};
+	    lx *= 0.5){}
     }
 
     /* 2. interval (lx,ux)  halving : */
@@ -406,7 +406,7 @@ T qnchisq(T)(T p, T df, T ncp, int lower_tail, int log_p)
 }
 
 
-T rnchisq(T)(T df, T lambda)
+T rnchisq(T: double)(T df, T lambda)
 {
     if (!isFinite(df) || !isFinite(lambda) || df < 0. || lambda < 0.)
 	    return T.nan;

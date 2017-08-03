@@ -1,15 +1,15 @@
-module poisson;
+module rmathd.poisson;
 
-import common;
-import uniform;
-import gamma;
-import normal;
+public import rmathd.common;
+public import rmathd.uniform;
+public import rmathd.gamma;
+public import rmathd.normal;
 
 /*
 ** dmd poisson.d uniform.d gamma.d common.d normal.d && ./poisson
 */
 
-T dpois(T)(T x, T lambda, int give_log)
+T dpois(T: double)(T x, T lambda, int give_log)
 {
 	mixin R_D__0!give_log;
     if(isNaN(x) || isNaN(lambda))
@@ -27,7 +27,7 @@ T dpois(T)(T x, T lambda, int give_log)
     return( dpois_raw!T(x, lambda, give_log) );
 }
 
-T ppois(T)(T x, T lambda, int lower_tail, int log_p)
+T ppois(T: double)(T x, T lambda, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(lambda))
 	    return x + lambda;
@@ -63,7 +63,7 @@ static T do_search(T)(T y, ref T z, T p, T lambda, T incr)
     }
 }
 
-T qpois(T)(T p, T lambda, int lower_tail, int log_p)
+T qpois(T: double)(T p, T lambda, int lower_tail, int log_p)
 {
     T mu, sigma, gamma, z, y;
     if (isNaN(p) || isNaN(lambda))
@@ -139,7 +139,7 @@ enum one_7 = 0.1428571428571428571;
 enum one_12 = 0.0833333333333333333;
 enum one_24 = 0.0416666666666666667;
 
-T rpois(T)(T mu)
+T rpois(T: double)(T mu)
 {
     /* Factorial Table (0:9)! */
     const static T[10] fact =

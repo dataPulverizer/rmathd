@@ -1,7 +1,7 @@
 module tukey;
 
-import common;
-import normal;
+import rmathd.common;
+import rmathd.normal;
 
 
 /* 

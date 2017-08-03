@@ -1,17 +1,17 @@
-module nbeta;
+module rmathd.nbeta;
 
-import common;
-import beta;
-import toms708;
-import nchisq;
-import chisq;
+public import rmathd.common;
+public import rmathd.beta;
+public import rmathd.toms708;
+public import rmathd.nchisq;
+public import rmathd.chisq;
 
 /* 
 ** poisson.d gamma.d
 ** dmd nbeta.d common.d beta.d toms708.d nchisq.d chisq.d normal.d && ./nbeta
 */
 
-T dnbeta(T)(T x, T a, T b, T ncp, int give_log)
+T dnbeta(T: double)(T x, T a, T b, T ncp, int give_log)
 {
     const static T eps = 1.0e-15;
 
@@ -171,7 +171,7 @@ T pnbeta2(T)(T x, T o_x, T a, T b, T ncp,
     }
 }
 
-T pnbeta(T)(T x, T a, T b, T ncp, int lower_tail, int log_p)
+T pnbeta(T: double)(T x, T a, T b, T ncp, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(a) || isNaN(b) || isNaN(ncp))
 	    return x + a + b + ncp;
@@ -181,7 +181,7 @@ T pnbeta(T)(T x, T a, T b, T ncp, int lower_tail, int log_p)
 }
 
 
-T qnbeta(T)(T p, T a, T b, T ncp, int lower_tail, int log_p)
+T qnbeta(T: double)(T p, T a, T b, T ncp, int lower_tail, int log_p)
 {
     const static T accu = 1e-15;
     const static T Eps = 1e-14; /* must be > accu */
@@ -207,9 +207,9 @@ T qnbeta(T)(T p, T a, T b, T ncp, int lower_tail, int log_p)
     if(p > 1 - DBL_EPSILON)
     	return 1.0;
     pp = fmin2!T(1 - DBL_EPSILON, p * (1 + Eps));
-    for(ux = 0.5; ux < 1 - DBL_EPSILON && pnbeta!T(ux, a, b, ncp, 1, 0) < pp; ux = 0.5*(1 + ux)){};
+    for(ux = 0.5; ux < 1 - DBL_EPSILON && pnbeta!T(ux, a, b, ncp, 1, 0) < pp; ux = 0.5*(1 + ux)){}
     pp = p * (1 - Eps);
-    for(lx = 0.5; lx > DBL_MIN && pnbeta!T(lx, a, b, ncp, 1, 0) > pp; lx *= 0.5){};
+    for(lx = 0.5; lx > DBL_MIN && pnbeta!T(lx, a, b, ncp, 1, 0) > pp; lx *= 0.5){}
 
     /* 2. interval (lx,ux)  halving : */
     do {
@@ -224,9 +224,9 @@ T qnbeta(T)(T p, T a, T b, T ncp, int lower_tail, int log_p)
 }
 
 
-T rnbeta(T)(T a, T b, T ncp)
+T rnbeta(T: double)(T a, T b, T ncp)
 {
-	T X = rnchisq(2*a, ncp);
+	T X = rnchisq!T(2*a, ncp);
     return X/(X + rchisq(2*b));
 }
 

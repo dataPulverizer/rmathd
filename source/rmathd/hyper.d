@@ -1,8 +1,8 @@
-module hyper;
+module rmathd.hyper;
 
-import common;
-import choose;
-import binomial;
+public import rmathd.common;
+public import rmathd.choose;
+public import rmathd.binomial;
 
 
 /* 
@@ -11,7 +11,7 @@ import binomial;
 */
 
 
-T dhyper(T)(T x, T r, T b, T n, int give_log)
+T dhyper(T: double)(T x, T r, T b, T n, int give_log)
 {
     T p, q, p1, p2, p3;
     
@@ -78,7 +78,7 @@ static T pdhyper(T)(T x, T NR, T NB, T n, int log_p)
 /* FIXME: The old phyper() code was basically used in ./qhyper.c as well
  * -----  We need to sync this again!
 */
-T phyper(T)(T x, T NR, T NB, T n, int lower_tail, int log_p)
+T phyper(T: double)(T x, T NR, T NB, T n, int lower_tail, int log_p)
 {
     /* Sample of  n balls from  NR red  and	 NB black ones;	 x are red */
     
@@ -116,7 +116,7 @@ T phyper(T)(T x, T NR, T NB, T n, int lower_tail, int log_p)
 }
 
 
-T qhyper(T)(T p, T NR, T NB, T n, int lower_tail, int log_p)
+T qhyper(T: double)(T p, T NR, T NB, T n, int lower_tail, int log_p)
 {
 /* This is basically the same code as  ./phyper.c  *used* to be --> FIXME! */
     T N, xstart, xend, xr, xb, sum, term;
@@ -209,7 +209,7 @@ static T afc(T)(int i)
 
 
 //     rhyper(NR, NB, n) -- NR 'red', NB 'blue', n drawn, how many are 'red'
-T rhyper(T)(T nn1in, T nn2in, T kkin)
+T rhyper(T: double)(T nn1in, T nn2in, T kkin)
 {
     /* extern double afc(int); */
 

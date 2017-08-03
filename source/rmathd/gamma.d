@@ -1,14 +1,14 @@
-module gamma;
+module rmathd.gamma;
 
-import common;
-import normal;
-import uniform;
+public import rmathd.common;
+public import rmathd.normal;
+//import rmathd.uniform;
 
 /*
 ** dmd gamma.d uniform.d normal.d common.d && ./gamma
 */
 
-T dgamma(T)(T x, T shape, T scale, int give_log)
+T dgamma(T: double)(T x, T shape, T scale, int give_log)
 {
     T pr;
     if (isNaN(x) || isNaN(shape) || isNaN(scale))
@@ -606,7 +606,7 @@ T pgamma_raw(T)(T x, T alph, int lower_tail, int log_p)
 }
 
 
-T pgamma(T)(T x, T alph, T scale, int lower_tail, int log_p)
+T pgamma(T: double)(T x, T alph, T scale, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(alph) || isNaN(scale))
 	    return x + alph + scale;
@@ -679,7 +679,7 @@ T qchisq_appr(T)(T p, T nu, T g /* = log Gamma(nu/2) */,
     return ch;
 }
 
-T qgamma(T)(T p, T alpha, T scale, int lower_tail, int log_p)
+T qgamma(T: double)(T p, T alpha, T scale, int lower_tail, int log_p)
 /*			shape = alpha */
 {
     enum EPS1 = 1e-2;
@@ -850,7 +850,7 @@ END:
 }
 
 
-T rgamma(T)(T a, T scale)
+T rgamma(T: double)(T a, T scale)
 {
 /* Constants : */
     const static T sqrt32 = 5.656854;

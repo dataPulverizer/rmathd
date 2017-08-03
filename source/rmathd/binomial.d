@@ -1,15 +1,15 @@
-module binomial;
+module rmathd.binomial;
 
-import common;
-import toms708;
-import beta;
-import normal;
+public import rmathd.common;
+public import rmathd.beta;
+//import toms708;
+//import normal;
 
 /*
 ** dmd binomial.d common.d toms708.d beta.d normal.d && ./binomial
 */
 
-T dbinom(T)(T x, T n, T p, int give_log)
+T dbinom(T: double)(T x, T n, T p, int give_log)
 {
     /* NaNs propagated correctly */
     if (isNaN(x) || isNaN(n) || isNaN(p))
@@ -29,7 +29,7 @@ T dbinom(T)(T x, T n, T p, int give_log)
     return dbinom_raw(x, n, p, 1 - p, give_log);
 }
 
-T pbinom(T)(T x, T n, T p, int lower_tail, int log_p)
+T pbinom(T: double)(T x, T n, T p, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(n) || isNaN(p))
         return x + n + p;
@@ -79,7 +79,7 @@ static T do_search(T)(T y, T *z, T p, T n, T pr, T incr)
 }
 
 
-T qbinom(T)(T p, T n, T pr, int lower_tail, int log_p)
+T qbinom(T: double)(T p, T n, T pr, int lower_tail, int log_p)
 {
     T q, mu, sigma, gamma, z, y;
     
@@ -153,7 +153,7 @@ T qbinom(T)(T p, T n, T pr, int lower_tail, int log_p)
     }
 }
 
-T rbinom(T)(T nin, T pp)
+T rbinom(T: double)(T nin, T pp)
 {
     /* FIXME: These should become THREAD_specific globals : */
 

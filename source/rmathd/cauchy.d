@@ -1,12 +1,12 @@
-module cauchy;
+module rmathd.cauchy;
 
-import common;
+public import rmathd.common;
 
 /*
 ** dmd cauchy.d common.d && ./cauchy
 */
 
-T dcauchy(T)(T x, T location, T scale, int give_log)
+T dcauchy(T: double)(T x, T location, T scale, int give_log)
 {
     T y;
     
@@ -22,7 +22,7 @@ T dcauchy(T)(T x, T location, T scale, int give_log)
 }
 
 
-T pcauchy(T)(T x, T location, T scale, int lower_tail, int log_p)
+T pcauchy(T: double)(T x, T location, T scale, int lower_tail, int log_p)
 {
     
     if (isNaN(x) || isNaN(location) || isNaN(scale))
@@ -54,7 +54,7 @@ T pcauchy(T)(T x, T location, T scale, int lower_tail, int log_p)
 }
 
 
-T qcauchy(T)(T p, T location, T scale, int lower_tail, int log_p)
+T qcauchy(T: double)(T p, T location, T scale, int lower_tail, int log_p)
 {
 
     if (isNaN(p) || isNaN(location) || isNaN(scale))
@@ -96,7 +96,7 @@ T qcauchy(T)(T p, T location, T scale, int lower_tail, int log_p)
 }
 
 
-T rcauchy(T)(T location, T scale)
+T rcauchy(T: double)(T location, T scale)
 {
     if (isNaN(location) || !isFinite(scale) || scale < 0)
 	    return T.nan;
@@ -107,7 +107,7 @@ T rcauchy(T)(T location, T scale)
 }
 
 
-void main()
+void test_cauchy()
 {
 	import std.stdio: writeln;
 	writeln("dcauchy: ", dcauchy(1., 0., 1., 0));

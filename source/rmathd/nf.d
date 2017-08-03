@@ -1,11 +1,11 @@
-module nf;
+module rmathd.nf;
 
-import common;
-import nchisq;
-import chisq;
-import nbeta;
-import gamma;
-import normal;
+public import rmathd.common;
+public import rmathd.nchisq;
+public import rmathd.chisq;
+public import rmathd.nbeta;
+public import rmathd.gamma;
+//import rmathd.normal;
 
 
 /* 
@@ -14,7 +14,7 @@ import normal;
 */
 
 
-T dnf(T)(T x, T df1, T df2, T ncp, int give_log)
+T dnf(T: double)(T x, T df1, T df2, T ncp, int give_log)
 {
     T y, z, f;
 
@@ -61,7 +61,7 @@ T dnf(T)(T x, T df1, T df2, T ncp, int give_log)
 }
 
 
-T pnf(T)(T x, T df1, T df2, T ncp, int lower_tail, int log_p)
+T pnf(T: double)(T x, T df1, T df2, T ncp, int lower_tail, int log_p)
 {
     T y;
 
@@ -85,7 +85,7 @@ T pnf(T)(T x, T df1, T df2, T ncp, int lower_tail, int log_p)
     return pnbeta2!T(y/(1. + y), 1./(1. + y), df1 / 2., df2 / 2., ncp, lower_tail, log_p);
 }
 
-T qnf(T)(T p, T df1, T df2, T ncp, int lower_tail, int log_p)
+T qnf(T: double)(T p, T df1, T df2, T ncp, int lower_tail, int log_p)
 {
     T y;
     
@@ -108,13 +108,13 @@ T qnf(T)(T p, T df1, T df2, T ncp, int lower_tail, int log_p)
     return y/(1-y) * (df2/df1);
 }
 
-T rnf(T)(T df1, T df2, T ncp) 
+T rnf(T: double)(T df1, T df2, T ncp) 
 {
     return (rnchisq!T(df1, ncp = ncp)/df1)/(rchisq!T(df2)/df2);
 }
 
 
-void main()
+void test_nf()
 {
 	import std.stdio: writeln;
 	writeln("dnf: ", dnf(7., 3., 4., 20., 0));

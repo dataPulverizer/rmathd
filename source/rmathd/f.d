@@ -1,10 +1,10 @@
-module f;
+module rmathd.f;
 
-import common;
-import gamma;
-import normal;
-import chisq;
-import beta;
+public import rmathd.common;
+public import rmathd.gamma;
+public import rmathd.chisq;
+public import rmathd.beta;
+//import rmathd.normal;
 
 
 /*
@@ -12,7 +12,7 @@ import beta;
 */
 
 
-T df(T)(T x, T m, T n, int give_log)
+T df(T: double)(T x, T m, T n, int give_log)
 {
     T p, q, f, dens;
 
@@ -57,7 +57,7 @@ T df(T)(T x, T m, T n, int give_log)
 }
 
 
-T pf(T)(T x, T df1, T df2, int lower_tail, int log_p)
+T pf(T: double)(T x, T df1, T df2, int lower_tail, int log_p)
 {
     
     if (isNaN(x) || isNaN(df1) || isNaN(df2))
@@ -99,7 +99,7 @@ T pf(T)(T x, T df1, T df2, int lower_tail, int log_p)
 }
 
 
-T qf(T)(T p, T df1, T df2, int lower_tail, int log_p)
+T qf(T: double)(T p, T df1, T df2, int lower_tail, int log_p)
 {
     
     if (isNaN(p) || isNaN(df1) || isNaN(df2))
@@ -131,7 +131,7 @@ T qf(T)(T p, T df1, T df2, int lower_tail, int log_p)
 }
 
 
-T rf(T)(T n1, T n2)
+T rf(T: double)(T n1, T n2)
 {
     T v1, v2;
     if (isNaN(n1) || isNaN(n2) || n1 <= 0. || n2 <= 0.)

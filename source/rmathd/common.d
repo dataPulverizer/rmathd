@@ -1,4 +1,4 @@
-module common;
+module rmathd.common;
 
 public import std.math: sin, cos, tan, atan, sqrt, exp, expm1, log, isNaN, isFinite, ldexp, nearbyint, floor,
                         round, abs, fabs, fmod, trunc, log1p, pow, ceil;
@@ -674,7 +674,7 @@ T lgammacor(T)(T x)
 /* Start of trig pi functions */
 
 // cos(pi * x)  -- exact when x = k/2  for all integer k
-T cospi(T)(T x) {
+T cospi(T: double)(T x) {
     if (isNaN(x))
     	return x;
     if(!isFinite(x))
@@ -692,7 +692,7 @@ T cospi(T)(T x) {
 }
 
 // sin(pi * x)  -- exact when x = k/2  for all integer k
-T sinpi(T)(T x) {
+T sinpi(T: double)(T x) {
     if (isNaN(x)) return x;
     if(!isFinite(x))
     	return T.nan;
@@ -714,7 +714,7 @@ T sinpi(T)(T x) {
 }
 
 
-T tanpi(T)(T x)
+T tanpi(T: double)(T x)
 {
     if (isNaN(x))
     	return x;
@@ -731,7 +731,7 @@ T tanpi(T)(T x)
 }
 /* End of trig pi functions */
 
-T lgammafn_sign(T)(T x, int *sgn)
+T lgammafn_sign(T: double)(T x, int* sgn)
 {
     T ans, y, sinpiy;
 
@@ -809,7 +809,7 @@ T lgammafn_sign(T)(T x, int *sgn)
     return ans;
 }
 
-T lgammafn(T)(T x)
+T lgammafn(T: double)(T x)
 {
     return lgammafn_sign!T(x, null);
 }
@@ -881,7 +881,7 @@ T stirlerr(T)(T n)
 
 
 
-T gammafn(T)(T x)
+T gammafn(T: double)(T x)
 {
     const static T[42] gamcs = [
 	+.8571195590989331421920062399942e-2,

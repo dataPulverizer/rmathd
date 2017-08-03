@@ -1,7 +1,7 @@
-module toms708;
+module rmathd.toms708;
 
-import common;
-import gamma;
+public import rmathd.common;
+public import rmathd.gamma;
 
 static auto gamln1(T)(T a)
 {

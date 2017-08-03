@@ -1,14 +1,11 @@
 module pnt;
 
-import common;
-import t;
-import normal;
-import beta;
-//import nchisq;
-import chisq;
-//import nbeta;
-//import gamma;
-//import normal;
+import rmathd.common;
+import rmathd.t;
+import rmathd.normal;
+import rmathd.beta;
+import rmathd.chisq;
+
 import std.stdio: writeln;
 
 
@@ -76,9 +73,9 @@ T pnt(T)(T t, T df, T ncp, int lower_tail, int log_p)
         
 	        /*========== really use an other algorithm for this case !!! */
 	        //ML_ERROR(ME_UNDERFLOW, "pnt");
-	        assert(0, "Underflow pnt");
 	        //ML_ERROR(ME_RANGE, "pnt"); /* |ncp| too large */
-	        assert(0, "Range pnt");
+	        //assert(0, "Underflow pnt");
+	        //assert(0, "Range pnt");
 	        return R_DT_0!T(lower_tail, log_p);
 	    }
         //#ifdef DEBUG_pnt
@@ -118,8 +115,9 @@ T pnt(T)(T t, T df, T ncp, int lower_tail, int log_p)
 	        s -= p;
 	        /* R 2.4.0 added test for rounding error here. */
 	        if(s < -1.0e-10) { /* happens e.g. for (t,df,ncp)=(40,10,38.5), after 799 it.*/
+	    	    
 	    	    //ML_ERROR(ME_PRECISION, "pnt");
-	    	    assert(0, "Precision pnt");
+	    	    //assert(0, "Precision pnt");
                 //#ifdef DEBUG_pnt
                 //		REprintf("s = %#14.7Lg < 0 !!! ---> non-convergence!!\n", s);
                 //#endif

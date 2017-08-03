@@ -1,16 +1,16 @@
-module t;
+module rmathd.t;
 
-import common;
-import beta;
-import normal;
-import chisq;
+public import rmathd.common;
+public import rmathd.beta;
+public import rmathd.normal;
+public import rmathd.chisq;
 
 /*
 ** dmd t.d common.d normal.d beta.d chisq.d && ./t
 */
 
 
-T dt(T)(T x, T n, int give_log)
+T dt(T: double)(T x, T n, int give_log)
 {
     
     mixin R_D__0!give_log;
@@ -58,7 +58,7 @@ T dt(T)(T x, T n, int give_log)
 }
 
 
-T pt(T)(T x, T n, int lower_tail, int log_p)
+T pt(T: double)(T x, T n, int lower_tail, int log_p)
 {
     /* return  P[ T <= x ]	where
      * T ~ t_{n}  (t distrib. with n degrees of freedom).
@@ -121,7 +121,7 @@ T pt(T)(T x, T n, int lower_tail, int log_p)
 }
 
 
-T qt(T)(T p, T ndf, int lower_tail, int log_p)
+T qt(T: double)(T p, T ndf, int lower_tail, int log_p)
 {
     const static T eps = 1.0e-12;
     
@@ -151,16 +151,16 @@ T qt(T)(T p, T ndf, int lower_tail, int log_p)
 	    if(p > 1 - DBL_EPSILON)
 	    	return T.infinity;
 	    pp = fmin2!T(1 - DBL_EPSILON, p * (1 + Eps));
-	    for(ux = 1.; ux < DBL_MAX && pt(ux, ndf, 1, 0) < pp; ux *= 2){};
+	    for(ux = 1.; ux < DBL_MAX && pt!T(ux, ndf, 1, 0) < pp; ux *= 2){}
 	    pp = p * (1 - Eps);
-	    for(lx =-1.; lx > -DBL_MAX && pt(lx, ndf, 1, 0) > pp; lx *= 2){};
+	    for(lx =-1.; lx > -DBL_MAX && pt!T(lx, ndf, 1, 0) > pp; lx *= 2){}
         
 	    /* 2. interval (lx,ux)  halving
 	       regula falsi failed on qt(0.1, 0.1)
 	     */
 	    do {
 	        nx = 0.5 * (lx + ux);
-	        if (pt(nx, ndf, 1, 0) > p) ux = nx; else lx = nx;
+	        if (pt!T(nx, ndf, 1, 0) > p) ux = nx; else lx = nx;
 	    } while ((ux - lx) / fabs(nx) > accu && ++iter < 1000);
         
 	    if(iter >= 1000){
@@ -281,7 +281,7 @@ T qt(T)(T p, T ndf, int lower_tail, int log_p)
 	if(P_ok1) {
 	    int it = 0;
 	    while(it++ < 10 && (y = dt(q, ndf, 0)) > 0 &&
-		  isFinite(x = (pt(q, ndf, 0, 0) - P/2) / y) &&
+		  isFinite(x = (pt!T(q, ndf, 0, 0) - P/2) / y) &&
 		  fabs(x) > 1e-14*fabs(q))
 		/* Newton (=Taylor 1 term):
 		 *  q += x;
@@ -294,7 +294,7 @@ T qt(T)(T p, T ndf, int lower_tail, int log_p)
 }
 
 
-T rt(T)(T df)
+T rt(T: double)(T df)
 {
     if (isNaN(df) || df <= 0.0)
     	return T.nan;

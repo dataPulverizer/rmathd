@@ -1,29 +1,29 @@
-module chisq;
+module rmathd.chisq;
 
-import common;
-import normal;
-import gamma;
+public import rmathd.common;
+public import rmathd.normal;
+public import rmathd.gamma;
 
 /*
 ** dmd chisq.d common.d normal.d gamma.d && ./chisq
 */
 
-T dchisq(T)(T x, T df, int give_log)
+T dchisq(T: double)(T x, T df, int give_log)
 {
     return dgamma!T(x, df / 2., 2., give_log);
 }
 
-T pchisq(T)(T x, T df, int lower_tail, int log_p)
+T pchisq(T: double)(T x, T df, int lower_tail, int log_p)
 {
     return pgamma!T(x, df/2., 2., lower_tail, log_p);
 }
 
-T qchisq(T)(T p, T df, int lower_tail, int log_p)
+T qchisq(T: double)(T p, T df, int lower_tail, int log_p)
 {
     return qgamma!T(p, 0.5 * df, 2.0, lower_tail, log_p);
 }
 
-T rchisq(T)(T df)
+T rchisq(T: double)(T df)
 {
     if (!isFinite(df) || df < 0.0)
     	return T.nan;

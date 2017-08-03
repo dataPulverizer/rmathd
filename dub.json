@@ -1,0 +1,12 @@
+{
+	"name": "rmathd",
+	"description": "D translation of the Rmath module from R 3.4.1",
+	"targetType": "library",
+	"homepage": "http://www.active-analytics.com",
+	"copyright": "Copyright © 2016, Chibisi Chima-Okereke",
+	"libs": ["m"],
+	"authors": [
+		"Chibisi Chima-Okereke"
+	],
+	"license": "GPL-3"
+}

@@ -1,13 +1,13 @@
-module lnorm;
+module rmathd.lnorm;
 
-import common;
-import normal;
+public import rmathd.common;
+public import rmathd.normal;
 
 /*
 ** dmd lnorm.d common.d normal.d && ./lnorm
 */
 
-T dlnorm(T)(T x, T meanlog, T sdlog, int give_log)
+T dlnorm(T: double)(T x, T meanlog, T sdlog, int give_log)
 {
     T y;
     mixin R_D__0!give_log;
@@ -30,7 +30,7 @@ T dlnorm(T)(T x, T meanlog, T sdlog, int give_log)
 }
 
 
-T plnorm(T)(T x, T meanlog, T sdlog, int lower_tail, int log_p)
+T plnorm(T: double)(T x, T meanlog, T sdlog, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(meanlog) || isNaN(sdlog))
 	    return x + meanlog + sdlog;
@@ -43,7 +43,7 @@ T plnorm(T)(T x, T meanlog, T sdlog, int lower_tail, int log_p)
     return R_DT_0!T(lower_tail, log_p);
 }
 
-T qlnorm(T)(T p, T meanlog, T sdlog, int lower_tail, int log_p)
+T qlnorm(T: double)(T p, T meanlog, T sdlog, int lower_tail, int log_p)
 {
     if (isNaN(p) || isNaN(meanlog) || isNaN(sdlog))
 	    return p + meanlog + sdlog;
@@ -54,7 +54,7 @@ T qlnorm(T)(T p, T meanlog, T sdlog, int lower_tail, int log_p)
     return exp(qnorm!T(p, meanlog, sdlog, lower_tail, log_p));
 }
 
-T rlnorm(T)(T meanlog, T sdlog)
+T rlnorm(T: double)(T meanlog, T sdlog)
 {
     if(isNaN(meanlog) || !isFinite(sdlog) || sdlog < 0.)
 	    return T.nan;

@@ -1,15 +1,13 @@
-module normal;
+module rmathd.normal;
 
-import common;
-import uniform;
+public import rmathd.common;
+public import rmathd.uniform;
 
 /*
 ** dmd normal.d uniform.d common.d && ./normal
-**
-** dmd normal.d uniform.d common.d && ./normal && rm normal.o normal
 */
 
-T dnorm(T)(T x, T mu, T sigma, int log_p)
+T dnorm(T: double)(T x, T mu, T sigma, int log_p)
 {
     if (isNaN(x) || isNaN(mu) || isNaN(sigma))
         return x + mu + sigma;
@@ -74,7 +72,7 @@ template do_del(alias X)
     }`;
 }
 
-void pnorm_both(T)(T x, ref T cum, ref T ccum, int i_tail, in int log_p)
+void pnorm_both(T: double)(T x, ref T cum, ref T ccum, int i_tail, in int log_p)
 {
     const static T[5] a = [
     2.2352520354606839287,
@@ -239,7 +237,7 @@ void pnorm_both(T)(T x, ref T cum, ref T ccum, int i_tail, in int log_p)
     return;
 }
 
-T pnorm(T)(T x, T mu, T sigma, int lower_tail, int log_p)
+T pnorm(T: double)(T x, T mu, T sigma, int lower_tail, int log_p)
 {
     T p, cp;
 
@@ -286,7 +284,7 @@ T pnorm(T)(T x, T mu, T sigma, int lower_tail, int log_p)
 }*/
 
 
-T qnorm(T)(T p, T mu, T sigma, int lower_tail, int log_p)
+T qnorm(T: double)(T p, T mu, T sigma, int lower_tail, int log_p)
 {
     T p_, q, r, val;
 
@@ -392,7 +390,7 @@ extern DL_FUNC User_norm_fun;
 enum C1 = 0.398942280401433;
 enum C2 = 0.180025191068563;
 
-T norm_rand(T)()
+T norm_rand(T: double)()
 {
 
     const static T[32] a =
@@ -660,13 +658,13 @@ T norm_rand(T)()
         return (u2 < u3) ? tt : -tt;
     }
     default:
-    assert(0, "norm_rand(): invalid N01_kind: " ~ N01_kind.stringof);
+        //assert(0, "norm_rand(): invalid N01_kind: " ~ N01_kind.stringof);
         return 0.0;/*- -Wall */
     }/*switch*/
 }
 
 
-T rnorm(T)(T mu, T sigma)
+T rnorm(T: double)(T mu, T sigma)
 {
     if (isNaN(mu) || !isFinite(sigma) || sigma < 0.)
         return T.nan;

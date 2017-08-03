@@ -1,11 +1,11 @@
-module nbinomial;
+module rmathd.nbinomial;
 
-import common;
-import beta;
-import poisson;
-import toms708;
-import normal;
-import gamma;
+public import rmathd.common;
+public import rmathd.beta;
+public import rmathd.poisson;
+public import rmathd.toms708;
+public import rmathd.normal;
+public import rmathd.gamma;
 
 /* 
 ** 
@@ -13,7 +13,7 @@ import gamma;
 */
 
 
-T dnbinom(T)(T x, T size, T prob, int give_log)
+T dnbinom(T: double)(T x, T size, T prob, int give_log)
 {
     T ans, p;
     mixin R_D__0!give_log;
@@ -39,7 +39,7 @@ T dnbinom(T)(T x, T size, T prob, int give_log)
 }
 
 
-T dnbinom_mu(T)(T x, T size, T mu, int give_log)
+T dnbinom_mu(T: double)(T x, T size, T mu, int give_log)
 {
     /* originally, just set  prob :=  size / (size + mu)  and called dbinom_raw(),
      * but that suffers from cancellation when   mu << size  */
@@ -83,7 +83,7 @@ T dnbinom_mu(T)(T x, T size, T mu, int give_log)
 }
 
 
-T pnbinom(T)(T x, T size, T prob, int lower_tail, int log_p)
+T pnbinom(T: double)(T x, T size, T prob, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(size) || isNaN(prob))
         return x + size + prob;
@@ -106,7 +106,7 @@ T pnbinom(T)(T x, T size, T prob, int lower_tail, int log_p)
 }
 
 
-T pnbinom_mu(T)(T x, T size, T mu, int lower_tail, int log_p)
+T pnbinom_mu(T: double)(T x, T size, T mu, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(size) || isNaN(mu))
         return x + size + mu;
@@ -166,7 +166,7 @@ static T do_search(T)(T y, T *z, T p, T n, T pr, T incr)
 }
 
 
-T qnbinom(T)(T p, T size, T prob, int lower_tail, int log_p)
+T qnbinom(T: double)(T p, T size, T prob, int lower_tail, int log_p)
 {
     T P, Q, mu, sigma, gamma, z, y;
 
@@ -232,7 +232,7 @@ T qnbinom(T)(T p, T size, T prob, int lower_tail, int log_p)
     }
 }
 
-T qnbinom_mu(T)(T p, T size, T mu, int lower_tail, int log_p)
+T qnbinom_mu(T: double)(T p, T size, T mu, int lower_tail, int log_p)
 {
     if (size == T.infinity) // limit case: Poisson
         return(qpois!T(p, mu, lower_tail, log_p));
@@ -241,7 +241,7 @@ T qnbinom_mu(T)(T p, T size, T mu, int lower_tail, int log_p)
 }
 
 
-T rnbinom(T)(T size, T prob)
+T rnbinom(T: double)(T size, T prob)
 {
     if(!isFinite(prob) || isNaN(size) || size <= 0 || prob <= 0 || prob > 1)
     /* prob = 1 is ok, PR#1218 */
@@ -250,7 +250,7 @@ T rnbinom(T)(T size, T prob)
     return (prob == 1) ? 0 : rpois(rgamma!T(size, (1 - prob) / prob));
 }
 
-T rnbinom_mu(T)(T size, T mu)
+T rnbinom_mu(T: double)(T size, T mu)
 {
     if(!isFinite(mu) || isNaN(size) || size <= 0 || mu < 0)
         return T.nan;

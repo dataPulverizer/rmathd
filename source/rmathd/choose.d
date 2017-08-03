@@ -1,7 +1,7 @@
-module choose;
+module rmathd.choose;
 
-import common;
-import beta;
+public import rmathd.common;
+public import rmathd.beta;
 
 
 /*
@@ -32,7 +32,7 @@ template ODD(T){
 }
 
 
-T lchoose(T)(T n, T k)
+T lchoose(T: double)(T n, T k)
 {
     T k0 = k;
     k = nearbyint(k);
@@ -82,7 +82,7 @@ enum k_small_max = 30;
 */
 
 
-T choose(T)(T n, T k)
+T choose(T: double)(T n, T k)
 {
     T r, k0 = k;
     k = nearbyint(k);

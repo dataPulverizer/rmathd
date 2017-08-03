@@ -1,6 +1,6 @@
-module weibull;
+module rmathd.weibull;
 
-import common;
+import rmathd.common;
 
 /* 
 ** beta.d poisson.d toms708 normal.d gamma.d
@@ -8,7 +8,7 @@ import common;
 */
 
 
-T dweibull(T)(T x, T shape, T scale, int give_log)
+T dweibull(T: double)(T x, T shape, T scale, int give_log)
 {
     T tmp1, tmp2;
     mixin R_D__0!give_log;
@@ -35,7 +35,7 @@ T dweibull(T)(T x, T shape, T scale, int give_log)
 }
 
 
-T pweibull(T)(T x, T shape, T scale, int lower_tail, int log_p)
+T pweibull(T: double)(T x, T shape, T scale, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(shape) || isNaN(scale))
 	    return x + shape + scale;
@@ -52,7 +52,7 @@ T pweibull(T)(T x, T shape, T scale, int lower_tail, int log_p)
 }
 
 
-T qweibull(T)(T p, T shape, T scale, int lower_tail, int log_p)
+T qweibull(T: double)(T p, T shape, T scale, int lower_tail, int log_p)
 {
     if (isNaN(p) || isNaN(shape) || isNaN(scale))
 	    return p + shape + scale;
@@ -67,7 +67,7 @@ T qweibull(T)(T p, T shape, T scale, int lower_tail, int log_p)
 }
 
 
-T rweibull(T)(T shape, T scale)
+T rweibull(T: double)(T shape, T scale)
 {
     if (!isFinite(shape) || !isFinite(scale) || shape <= 0. || scale <= 0.) {
 	    if(scale == 0.)

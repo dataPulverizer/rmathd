@@ -1,12 +1,12 @@
-module exponential;
+module rmathd.exponential;
 
-import common;
+public import rmathd.common;
 
 /*
 ** dmd exponential.d common.d && ./exponential
 */
 
-auto dexp(T)(T x, T scale, int give_log)
+T dexp(T: double)(T x, T scale, int give_log)
 {
     /* NaNs propagated correctly */
     if (isNaN(x) || isNaN(scale))
@@ -21,7 +21,7 @@ auto dexp(T)(T x, T scale, int give_log)
 }
 
 
-auto pexp(T)(T x, T scale, int lower_tail, int log_p)
+T pexp(T: double)(T x, T scale, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(scale))
         return x + scale;
@@ -36,7 +36,7 @@ auto pexp(T)(T x, T scale, int lower_tail, int log_p)
 }
 
 
-auto qexp(T)(T p, T scale, int lower_tail, int log_p)
+T qexp(T: double)(T p, T scale, int lower_tail, int log_p)
 {
     if (isNaN(p) || isNaN(scale))
         return p + scale;
@@ -52,7 +52,7 @@ auto qexp(T)(T p, T scale, int lower_tail, int log_p)
 }
 
 
-auto rexp(T)(T scale)
+T rexp(T: double)(T scale)
 {
     if (!isFinite(scale) || scale <= 0.0) {
         if(scale == 0.)

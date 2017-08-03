@@ -1,14 +1,11 @@
 module nt;
 
-import common;
-import t;
-import normal;
-import beta;
-//import nchisq;
-import chisq;
-//import nbeta;
-//import gamma;
-//import normal;
+import rmathd.common;
+import rmathd.t;
+import rmathd.normal;
+import rmathd.beta;
+import rmathd.chisq;
+
 
 /* 
 ** toms708.d 
@@ -120,9 +117,9 @@ T pnt(T)(T t, T df, T ncp, int lower_tail, int log_p)
 
 	    /*========== really use an other algorithm for this case !!! */
 	    //ML_ERROR(ME_UNDERFLOW, "pnt");
-	    assert(0, "underflow error in pnt");
-	    //ML_ERROR(ME_RANGE, "pnt"); /* |ncp| too large */
-	    assert(0, "range error in pnt");
+        //ML_ERROR(ME_RANGE, "pnt"); /* |ncp| too large */
+	    //assert(0, "underflow error in pnt");
+	    //assert(0, "range error in pnt");
 	    return R_DT_0!T(lower_tail, log_p);
 	}
     //#ifdef DEBUG_pnt
@@ -163,7 +160,8 @@ T pnt(T)(T t, T df, T ncp, int lower_tail, int log_p)
 	    /* R 2.4.0 added test for rounding error here. */
 	    if(s < -1.0e-10) { /* happens e.g. for (t,df,ncp)=(40,10,38.5), after 799 it.*/
 		//ML_ERROR(ME_PRECISION, "pnt");
-		assert(0, "precision error int pnt");
+        //assert(0, "precision error int pnt");
+        
         //#ifdef DEBUG_pnt
         //		REprintf("s = %#14.7Lg < 0 !!! ---> non-convergence!!\n", s);
         //#endif
@@ -233,11 +231,11 @@ T qnt(T)(T p, T df, T ncp, int lower_tail, int log_p)
     pp = fmin2!T(1 - DBL_EPSILON, p * (1 + Eps));
     for(ux = fmax2!T(1., ncp);
 	ux < DBL_MAX && pnt!T(ux, df, ncp, 1, 0) < pp;
-	ux *= 2){};
+	ux *= 2){}
     pp = p * (1 - Eps);
     for(lx = fmin2(-1., -ncp);
 	(lx > -DBL_MAX) && (pnt!T(lx, df, ncp, 1, 0) > pp);
-	lx *= 2){};
+	lx *= 2){}
     
     /* 2. interval (lx,ux)  halving : */
     do {

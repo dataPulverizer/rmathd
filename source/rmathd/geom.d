@@ -1,8 +1,8 @@
-module geom;
+module rmathd.geom;
 
-import common;
-import poisson;
-import exponential;
+public import rmathd.common;
+public import rmathd.poisson;
+public import rmathd.exponential;
 
 
 /*
@@ -10,7 +10,7 @@ import exponential;
 */
 
 
-T dgeom(T)(T x, T p, int give_log)
+T dgeom(T: double)(T x, T p, int give_log)
 { 
     T prob;
     mixin R_D__0!give_log;
@@ -33,7 +33,7 @@ T dgeom(T)(T x, T p, int give_log)
 }
 
 
-T pgeom(T)(T x, T p, int lower_tail, int log_p)
+T pgeom(T: double)(T x, T p, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(p))
 	    return x + p;
@@ -59,7 +59,7 @@ T pgeom(T)(T x, T p, int lower_tail, int log_p)
 }
 
 
-T qgeom(T)(T p, T prob, int lower_tail, int log_p)
+T qgeom(T: double)(T p, T prob, int lower_tail, int log_p)
 {
     if (isNaN(p) || isNaN(prob))
 	    return p + prob;
@@ -78,7 +78,7 @@ T qgeom(T)(T p, T prob, int lower_tail, int log_p)
 }
 
 
-T rgeom(T)(T p)
+T rgeom(T: double)(T p)
 {
     if (!isFinite(p) || p <= 0 || p > 1)
     	return T.nan;

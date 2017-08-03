@@ -1,13 +1,13 @@
-module beta;
+module rmathd.beta;
 
-import common;
-import toms708;
+public import rmathd.common;
+public import rmathd.toms708;
 
 /*
 ** dmd beta.d common.d && ./beta
 */
 
-T lbeta(T)(T a, T b)
+T lbeta(T: double)(T a, T b)
 {
     T corr, p, q;
 
@@ -48,7 +48,7 @@ T lbeta(T)(T a, T b)
 }
 
 
-auto beta(T)(T a, T b)
+T beta(T: double)(T a, T b)
 {
     //#ifdef NOMORE_FOR_THREADS
     static T xmin, xmax = 0;/*-> typically = 171.61447887 for IEEE */
@@ -100,7 +100,7 @@ auto beta(T)(T a, T b)
 }
 
 
-auto dbeta(T)(T x, T a, T b, int give_log)
+T dbeta(T: double)(T x, T a, T b, int give_log)
 {
 	mixin R_D__0!give_log;
     /* NaNs propagated correctly */
@@ -185,7 +185,7 @@ T pbeta_raw(T)(T x, T a, T b, int lower_tail, int log_p)
     return lower_tail ? w : wc;
 } /* pbeta_raw() */
 
-auto pbeta(T)(T x, T a, T b, int lower_tail, int log_p)
+T pbeta(T: double)(T x, T a, T b, int lower_tail, int log_p)
 {
     if (isNaN(x) || isNaN(a) || isNaN(b))
     	return x + a + b;
@@ -726,7 +726,7 @@ L_return:
     return;
 }
 
-T qbeta(T)(T alpha, T p, T q, int lower_tail, int log_p)
+T qbeta(T: double)(T alpha, T p, T q, int lower_tail, int log_p)
 {
 
     /* test for admissibility of parameters */
@@ -761,7 +761,7 @@ immutable(string) v_w_from__u1_bet_a(){
 		w = DBL_MAX;`;
 }
 
-auto rbeta(T)(T aa, T bb)
+T rbeta(T: double)(T aa, T bb)
 {
     if (isNaN(aa) || isNaN(bb) || aa < 0. || bb < 0.)
 	    return T.nan;
