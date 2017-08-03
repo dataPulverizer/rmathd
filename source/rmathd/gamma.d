@@ -7,8 +7,9 @@ public import rmathd.normal;
 /*
 ** dmd gamma.d uniform.d normal.d common.d && ./gamma
 */
-
-T dgamma(T: double)(T x, T shape, T scale, int give_log)
+import std.traits: isNumeric;
+T dgamma(T)(T x, T shape, T scale, int give_log)
+if(is(T: double) && isNumeric!T)
 {
     T pr;
     if (isNaN(x) || isNaN(shape) || isNaN(scale))
