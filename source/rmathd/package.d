@@ -23,6 +23,11 @@ public import rmathd.t: dt, pt, qt, rt;
 public import rmathd.uniform: dunif, punif, qunif, runif;
 public import rmathd.weibull: dweibull, pweibull, qweibull, rweibull;
 
+version (DigitalMars)
+{}else{
+	static assert(0, "Unsupported D compiler! Please use dmd version >= v2.075.0. Thank you");
+}
+
 void demo()
 {
 	import std.stdio: write, writeln;

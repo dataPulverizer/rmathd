@@ -73,11 +73,10 @@ T runif(T: double)(T a, T b)
 }
 
 
-void test_uniform()
+void demo_uniform()
 {
 	import std.stdio : writeln;
 	writeln(unif_rand!double());
-	set_seed(4321, 8765);
 	writeln(unif_rand!double());
 	writeln("punif: ", punif(0.5, 0., 1., 0, 0));
 	writeln("qunif: ", qunif(0.5, 0., 1., 0, 0));

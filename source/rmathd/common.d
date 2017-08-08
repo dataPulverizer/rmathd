@@ -1114,18 +1114,16 @@ T dpois_raw(T)(T x, T lambda, int give_log)
 
 
 /* unif_rand */
+/*
 static uint I1 = 1234, I2 = 5678;
-
 void set_seed(uint i1, uint i2)
 {
 	I1 = i1; I2 = i2;
 }
-
 void get_seed(uint* i1, uint* i2)
 {
 	*i1 = I1; *i2 = I2;
 }
-
 T unif_rand(T)()
 {
     import std.conv : octal;
@@ -1133,6 +1131,38 @@ T unif_rand(T)()
     I2 = 18000*(I2 & octal!177777) + (I2>>16);
     return ((I1 << 16)^(I2 & octal!177777)) * 2.328306437080797e-10;
 }
+*/
+
+public import rmathd.rng.rng;
+auto unif_rand(T)(double lower = 0, double upper = 1)
+{
+    return uniform!double(lower, upper);
+}
+
+void rng_demo()
+{
+    import std.stdio: writeln;
+    set_seed(789);
+    foreach(i; 0..5)
+        writeln(unif_rand!double());
+
+    RandomNumberGenerator anotherRNG = new MINSTDRAND();
+    setRNG(anotherRNG);
+    
+    writeln("Just after setRNG.");
+    set_seed(101113);
+    writeln("Next random numbers");
+    foreach(i; 0..5)
+        writeln(unif_rand!double());
+
+    setRNG(cast(RandomNumberGenerator)(new MINSTDRAND0()));
+
+    writeln("Next random numbers");
+    set_seed(50);
+    foreach(i; 0..5)
+        writeln(unif_rand!double());
+}
+
 
 
 T exp_rand(T)()
