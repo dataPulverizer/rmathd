@@ -115,7 +115,7 @@ immutable(string) gen_rand_num_code()
 	    return output;`;
 }
 
-auto rand(T = double)(T lower, T upper)
+auto rand(T = double)(T lower = 0.0, T upper = 1.0)
 {
 	if(threadRNG.RNGName == "MT19937"){
 	    MT19937 Rng = cast(MT19937)threadRNG;
