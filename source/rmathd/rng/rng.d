@@ -111,7 +111,7 @@ immutable(string) gen_rand_num_code()
 		Rng.engine.seed(unpredictableSeed);
 		seed_set();
 	}
-	auto output = uniform!("[]", T, T)(0.0, 1.0, Rng.engine);
+	auto output = uniform!("[]", T, T)(lower, upper, Rng.engine);
 	    return output;`;
 }
 
