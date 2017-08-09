@@ -111,11 +111,11 @@ immutable(string) gen_rand_num_code()
 		Rng.engine.seed(unpredictableSeed);
 		seed_set();
 	}
-	auto output = std.random.uniform!("[]", T, T)(0.0, 1.0, Rng.engine);
+	auto output = uniform!("[]", T, T)(0.0, 1.0, Rng.engine);
 	    return output;`;
 }
 
-auto uniform(T)(T lower, T upper)
+auto rand(T)(T lower, T upper)
 {
 	if(threadRNG.RNGName == "MT19937"){
 	    MT19937 Rng = cast(MT19937)threadRNG;

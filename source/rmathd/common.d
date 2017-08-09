@@ -1136,7 +1136,7 @@ T unif_rand(T)()
 public import rmathd.rng.rng;
 auto unif_rand(T)(double lower = 0, double upper = 1)
 {
-    return uniform!double(lower, upper);
+    return rand!double(lower, upper);
 }
 
 void rng_demo()
